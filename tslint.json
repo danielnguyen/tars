@@ -1,0 +1,51 @@
+/**
+ * Microsoft TSLint rules.
+ * Please see https://github.com/Microsoft/tslint-microsoft-contrib for more details.
+ */
+
+{
+    "extends": [
+        "tslint-microsoft-contrib"
+    ],
+    "rules": {
+        "export-name": false,
+        "insecure-random": true,
+        "max-func-body-length": [true, 50],
+        "missing-jsdoc": false,
+        "mocha-no-side-effect-code": false,
+        "no-banned-terms": true,
+        "no-constant-condition": true,
+        "no-disable-auto-sanitization": true,
+        "no-document-domain": true,
+        "no-document-write": true,
+        "no-duplicate-case": true,
+        "no-empty-interfaces": true,
+        "no-empty-line-after-opening-brace": true,
+        "no-exec-script": true,
+        "no-for-in": true,
+        "no-function-constructor-with-string-args": true,
+        "no-function-expression": true,
+        "no-http-string": true,
+        "no-relative-imports": true,
+        "no-reserved-keywords": true,
+        "no-single-line-block-comment": true,
+        "no-stateless-class": true,
+        "no-suspicious-comment": true,
+        "no-typeof-undefined": true,
+        "no-unexternalized-strings": false,
+        "no-unnecessary-bind": true,
+        "no-unnecessary-field-initialization": true,
+        "no-unnecessary-local-variable": true,
+        "no-unnecessary-override": true,
+        "no-unnecessary-semicolons": true,
+        "no-unsupported-browser-code": true,
+        "no-useless-files": false,
+        "non-literal-require": true,
+        "possible-timing-attack": true,
+        "prefer-array-literal": true,
+        "prefer-type-cast": true,
+        "promise-must-complete": true,
+        "use-named-parameter": true,
+        "valid-typeof": true
+    }
+}
