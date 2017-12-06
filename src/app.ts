@@ -9,6 +9,8 @@ loadEnv().catch(err => {
 
 // Need to come after load env.
 import { Server } from './common/server';
+import { swagger } from './common/swagger';
+import { RegisterRoutes } from './routes/routes';
 
 main().catch(err => {
     console.error('Cannot start Mavis.', err);
@@ -27,9 +29,10 @@ async function main(): Promise<void> {
 
     const app = server.getExpressApp();
 
-    
+    RegisterRoutes(app);
+    swagger(app);
 
-
-    // await app.init();
-    // await app.start();
+    await server.start((webserver: Server) => {
+        console.log('** TARS is online!');
+    });
 }

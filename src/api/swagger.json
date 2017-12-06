@@ -1,0 +1,58 @@
+{
+	"basePath": "/v1",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"Health": {
+			"properties": {
+				"status": {
+					"type": "number",
+					"format": "double"
+				},
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"status",
+				"message"
+			],
+			"type": "object"
+		}
+	},
+	"info": {
+		"title": "node-ts-boilerplate",
+		"version": "1.0.0",
+		"description": "Boilerplate code for TypeScript projects",
+		"license": {
+			"name": "ISC"
+		}
+	},
+	"paths": {
+		"/Health": {
+			"get": {
+				"operationId": "GetHealth",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Health"
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {},
+	"host": "localhost:3000"
+}

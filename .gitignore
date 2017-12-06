@@ -61,4 +61,6 @@ typings/
 # certificates
 certs/
 
-template/
+# TSOA Generated
+src/dist/
+src/routes/routes.ts
