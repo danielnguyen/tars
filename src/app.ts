@@ -32,7 +32,9 @@ async function main(): Promise<void> {
     RegisterRoutes(app);
     swagger(app);
 
-    await server.start((webserver: Server) => {
+    await server.start(async (webserver: Server) => {
+        const info = await server.info();
+        console.log('Server is listening at: ' + info.url);
         console.log('** TARS is online!');
     });
 }

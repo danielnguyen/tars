@@ -1,12 +1,13 @@
 import * as SwaggerTools from 'swagger-tools';
 import * as express from 'express';
+import * as path from 'path';
 import { Config } from '../config';
 
 export function swagger(app: express.Application) {
 
     // swaggerRouter configuration
-    const swaggerOptions = {
-        controllers: '../api/controllers',
+    const options = {
+        controllers: path.join(__dirname, '../api/controllers'),
         useStubs: Config.__DEVELOPMENT__ ? true : false // Conditionally turn on stubs (mock mode)
     };
 
@@ -21,7 +22,7 @@ export function swagger(app: express.Application) {
         app.use(middleware.swaggerValidator());
     
         // Route validated requests to appropriate controller
-        app.use(middleware.swaggerRouter(swaggerOptions));
+        app.use(middleware.swaggerRouter(options));
     
         // Serve the Swagger documents and Swagger UI
         app.use(middleware.swaggerUi());
