@@ -4,9 +4,36 @@
 		"application/json"
 	],
 	"definitions": {
-		"Health": {
+		"BroadlinkDevice": {
 			"properties": {
-				"status": {
+				"id": {
+					"type": "number",
+					"format": "double"
+				},
+				"name": {
+					"type": "string"
+				},
+				"host": {
+					"type": "string"
+				},
+				"mac": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"id",
+				"name",
+				"host",
+				"type"
+			],
+			"type": "object"
+		},
+		"ResponseModel": {
+			"properties": {
+				"code": {
 					"type": "number",
 					"format": "double"
 				},
@@ -15,22 +42,145 @@
 				}
 			},
 			"required": [
-				"status",
+				"code",
 				"message"
+			],
+			"type": "object"
+		},
+		"BroadlinkDeviceState": {
+			"properties": {
+				"is_active": {
+					"type": "boolean"
+				}
+			},
+			"required": [
+				"is_active"
 			],
 			"type": "object"
 		}
 	},
 	"info": {
-		"title": "node-ts-boilerplate",
+		"title": "tars",
 		"version": "1.0.0",
-		"description": "Boilerplate code for TypeScript projects",
+		"description": "The Automated Residence System",
 		"license": {
 			"name": "ISC"
 		}
 	},
 	"paths": {
-		"/Health": {
+		"/Broadlink/Discover": {
+			"post": {
+				"operationId": "DiscoverBroadlinkDevices",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/BroadlinkDevice"
+							}
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/Broadlink/Devices": {
+			"get": {
+				"operationId": "GetBroadlinkDevices",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/BroadlinkDevice"
+							}
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/Broadlink/Devices/{deviceId}": {
+			"get": {
+				"operationId": "GetBroadlinkDevice",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/BroadlinkDevice"
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					}
+				]
+			},
+			"put": {
+				"operationId": "PutBroadlinkDeviceState",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "No content",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					},
+					{
+						"in": "body",
+						"name": "model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/BroadlinkDeviceState"
+						}
+					}
+				]
+			}
+		},
+		"/HealthCheck": {
 			"get": {
 				"operationId": "GetHealth",
 				"produces": [
@@ -40,7 +190,7 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"$ref": "#/definitions/Health"
+							"$ref": "#/definitions/ResponseModel"
 						}
 					}
 				},

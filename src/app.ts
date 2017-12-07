@@ -12,6 +12,10 @@ import { Server } from './common/server';
 import { swagger } from './common/swagger';
 import { RegisterRoutes } from './routes/routes';
 
+// Import API controllers for tsoa crawl
+import './api/controllers/broadlink';
+import './api/controllers/health';
+
 main().catch(err => {
     console.error('Cannot start Mavis.', err);
     process.exit(1);

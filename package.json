@@ -1,16 +1,18 @@
 {
-  "name": "node-ts-boilerplate",
+  "name": "tars",
   "version": "1.0.0",
-  "description": "Boilerplate code for TypeScript projects",
+  "description": "The Automated Residence System",
   "main": "src/app.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "build": "npm-run-all generate:swagger generate:routes",
+    "build:start": "npm-run-all build start",
+    "build:start:watch": "npm-run-all build start:watch",
     "generate:routes": "tsoa routes",
     "generate:swagger": "tsoa swagger",
-    "clean": "rimraf coverage build tmp",
+    "clean": "rimraf coverage build tmp src/api/swagger.json src/routes/routes.ts",
     "start": "./node_modules/.bin/ts-node ./src/app.ts",
     "start:watch": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/app.ts",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
@@ -48,6 +50,7 @@
     "@types/morgan": "^1.7.35",
     "@types/swagger-tools": "^0.10.5",
     "body-parser": "^1.18.2",
+    "broadlinkjs": "^0.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "fs": "0.0.1-security",
