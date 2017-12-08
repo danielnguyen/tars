@@ -1,0 +1,208 @@
+{
+	"basePath": "/v1",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"ResponseModel": {
+			"properties": {
+				"code": {
+					"type": "number",
+					"format": "double"
+				},
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"code",
+				"message"
+			],
+			"type": "object"
+		},
+		"BroadlinkDeviceInfo": {
+			"properties": {
+				"id": {
+					"type": "number",
+					"format": "double"
+				},
+				"host": {
+					"type": "string"
+				},
+				"mac": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"id",
+				"host",
+				"type"
+			],
+			"type": "object"
+		},
+		"BroadlinkDeviceController": {
+			"properties": {
+				"device": {
+					"type": "string",
+					"enum": [
+						"Projector",
+						"TV"
+					]
+				},
+				"command": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"device",
+				"command"
+			],
+			"type": "object"
+		}
+	},
+	"info": {
+		"title": "tars",
+		"version": "1.0.0",
+		"description": "The Automated Residence System",
+		"license": {
+			"name": "ISC"
+		}
+	},
+	"paths": {
+		"/Broadlink/Discover": {
+			"post": {
+				"operationId": "DiscoverBroadlinkDevices",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/Broadlink/Devices": {
+			"get": {
+				"operationId": "GetBroadlinkDevices",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/Broadlink/Devices/{deviceId}": {
+			"get": {
+				"operationId": "GetBroadlinkDevice",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/BroadlinkDeviceInfo"
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					}
+				]
+			}
+		},
+		"/Broadlink/Devices/{deviceId}/Controller": {
+			"put": {
+				"operationId": "PutBroadlinkDeviceController",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "No content",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Broadlink"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					},
+					{
+						"in": "body",
+						"name": "model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/BroadlinkDeviceController"
+						}
+					}
+				]
+			}
+		},
+		"/HealthCheck": {
+			"get": {
+				"operationId": "GetHealth",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {},
+	"host": "localhost:3000"
+}
