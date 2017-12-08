@@ -52,7 +52,7 @@ class BroadlinkService {
         return new Promise(async (resolve, reject) => {
             await this._broadlink.discover();
             const message = "Total discovered devices: " + Object.keys(this._devices).length;
-            resolve({code: HTTP_STATUS.OK, message: message});
+            resolve({status: HTTP_STATUS.OK, message: message});
         });
     }
   
@@ -67,7 +67,7 @@ class BroadlinkService {
             const deviceDetails = this._devicesDetails[deviceId];
             if (!deviceDetails) {
                 logger.error('Requested device not found.');
-                reject({code: HTTP_STATUS.NOT_FOUND, message: "Device not found."});
+                reject({status: HTTP_STATUS.NOT_FOUND, message: "Device not found."});
             }
             resolve(deviceDetails);
         });
@@ -78,20 +78,20 @@ class BroadlinkService {
             const device = this._devices[deviceId];
             if (!device) {
                 logger.error('Requested device not found.');
-                reject({ code: HTTP_STATUS.NOT_FOUND, message: "Device not found."});
+                reject({ status: HTTP_STATUS.NOT_FOUND, message: "Device not found."});
             }
             
             // Get target device type
             const deviceType = commands[model.device];
             if (!deviceType) {
                 logger.error('Requested command not found.');
-                reject({ code: HTTP_STATUS.NOT_FOUND, message: "This device type is not supported: " + deviceType})
+                reject({ status: HTTP_STATUS.NOT_FOUND, message: "This device type is not supported: " + deviceType})
             }
 
             // Get command
             const command = deviceType[model.command];
             if (!command || !command.data) {
-                reject({ code: HTTP_STATUS.NOT_FOUND, message: "This command is not supported: " + deviceType})
+                reject({ status: HTTP_STATUS.NOT_FOUND, message: "This command is not supported: " + deviceType})
             }
 
             const hexDataBuffer = new Buffer(command.data, 'hex');

@@ -11,27 +11,33 @@ export class BroadlinkController extends Controller {
     @Post('Discover')
     @Tags('Broadlink')
     public async discoverBroadlinkDevices(): Promise<ResponseModel> {
-        return await broadlinkService.discoverBroadlinkDevices();
+        const resp = await broadlinkService.discoverBroadlinkDevices();
+        this.setStatus(resp.status);
+        return resp;
     }
 
     @SuccessResponse(HTTP_STATUS.OK, 'OK')
     @Get('Devices')
     @Tags('Broadlink')
     public async getBroadlinkDevices(): Promise<any> {
-        return await broadlinkService.getBroadlinkDevices();
+        const resp = await broadlinkService.getBroadlinkDevices();
+        return resp;
     }
     
     @SuccessResponse(HTTP_STATUS.OK, 'OK')
     @Get('Devices/{deviceId}')
     @Tags('Broadlink')
     public async getBroadlinkDevice(deviceId: number): Promise<BroadlinkDeviceInfo> {
-        return await broadlinkService.getBroadlinkDevice(deviceId);
+        const resp = await broadlinkService.getBroadlinkDevice(deviceId);
+        return resp;
     }
     
     @SuccessResponse(HTTP_STATUS.NO_CONTENT, 'No content')
     @Put('Devices/{deviceId}/Controller')
     @Tags('Broadlink')
     public async putBroadlinkDeviceController(deviceId: number, @Body() model: BroadlinkDeviceController): Promise<ResponseModel> {
-        return await broadlinkService.putBroadlinkDeviceController(deviceId, model);
+        const resp = await broadlinkService.putBroadlinkDeviceController(deviceId, model);
+        this.setStatus(resp.status);
+        return resp;
     }
 }
