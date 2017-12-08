@@ -1,6 +1,6 @@
-# node-ts-boilerplate
+# tars
 
-One Paragraph of project description goes here
+
 
 ## Getting Started
 
@@ -16,10 +16,10 @@ Clone the repository:
 
 ```
 # Get the latest code
-git clone https://github.com/danielnguyen/node-ts-boilerplate.git
+git clone https://github.com/danielnguyen/tars.git
 
 # Change directory
-cd node-ts-boilerplate
+cd tars
 
 # Install NPM dependencies
 npm install
@@ -38,7 +38,7 @@ No deployment yet.
 
 ## Built With
 
-
+The command data was trained using http://rm-bridge.fun2code.de/rm_manage/code_learning.html
 
 ## Contributing
 

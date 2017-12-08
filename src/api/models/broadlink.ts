@@ -1,11 +1,13 @@
-export interface BroadlinkDevice {
+import * as Broadlink from 'broadlinkjs';
+
+export interface BroadlinkDeviceInfo {
     id: number,
-    name: string,
     host: string,
     mac?: string,
     type: string
 }
 
-export interface BroadlinkDeviceState {
-    is_active: boolean
+export interface BroadlinkDeviceController {
+    device: "Projector" | "TV",
+    command: string
 }

@@ -1,5 +1,5 @@
 import * as HTTP_STATUS from 'http-status-codes';
-// import l from '../../common/logger';
+import logger from '../../common/logger';
 import { ResponseModel } from '../models';
 import { resolve } from 'dns';
 

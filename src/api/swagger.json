@@ -4,33 +4,6 @@
 		"application/json"
 	],
 	"definitions": {
-		"BroadlinkDevice": {
-			"properties": {
-				"id": {
-					"type": "number",
-					"format": "double"
-				},
-				"name": {
-					"type": "string"
-				},
-				"host": {
-					"type": "string"
-				},
-				"mac": {
-					"type": "string"
-				},
-				"type": {
-					"type": "string"
-				}
-			},
-			"required": [
-				"id",
-				"name",
-				"host",
-				"type"
-			],
-			"type": "object"
-		},
 		"ResponseModel": {
 			"properties": {
 				"code": {
@@ -47,14 +20,45 @@
 			],
 			"type": "object"
 		},
-		"BroadlinkDeviceState": {
+		"BroadlinkDeviceInfo": {
 			"properties": {
-				"is_active": {
-					"type": "boolean"
+				"id": {
+					"type": "number",
+					"format": "double"
+				},
+				"host": {
+					"type": "string"
+				},
+				"mac": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
 				}
 			},
 			"required": [
-				"is_active"
+				"id",
+				"host",
+				"type"
+			],
+			"type": "object"
+		},
+		"BroadlinkDeviceController": {
+			"properties": {
+				"device": {
+					"type": "string",
+					"enum": [
+						"Projector",
+						"TV"
+					]
+				},
+				"command": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"device",
+				"command"
 			],
 			"type": "object"
 		}
@@ -78,10 +82,7 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/BroadlinkDevice"
-							}
+							"$ref": "#/definitions/ResponseModel"
 						}
 					}
 				},
@@ -102,10 +103,7 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/BroadlinkDevice"
-							}
+							"type": "object"
 						}
 					}
 				},
@@ -126,7 +124,7 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"$ref": "#/definitions/BroadlinkDevice"
+							"$ref": "#/definitions/BroadlinkDeviceInfo"
 						}
 					}
 				},
@@ -143,9 +141,11 @@
 						"type": "number"
 					}
 				]
-			},
+			}
+		},
+		"/Broadlink/Devices/{deviceId}/Controller": {
 			"put": {
-				"operationId": "PutBroadlinkDeviceState",
+				"operationId": "PutBroadlinkDeviceController",
 				"produces": [
 					"application/json"
 				],
@@ -174,7 +174,7 @@
 						"name": "model",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/BroadlinkDeviceState"
+							"$ref": "#/definitions/BroadlinkDeviceController"
 						}
 					}
 				]
