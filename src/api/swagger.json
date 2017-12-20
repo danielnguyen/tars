@@ -6,7 +6,7 @@
 	"definitions": {
 		"ResponseModel": {
 			"properties": {
-				"code": {
+				"status": {
 					"type": "number",
 					"format": "double"
 				},
@@ -15,7 +15,7 @@
 				}
 			},
 			"required": [
-				"code",
+				"status",
 				"message"
 			],
 			"type": "object"
@@ -43,7 +43,7 @@
 			],
 			"type": "object"
 		},
-		"BroadlinkDeviceController": {
+		"BroadlinkRequest": {
 			"properties": {
 				"device": {
 					"type": "string",
@@ -58,6 +58,58 @@
 			},
 			"required": [
 				"device",
+				"command"
+			],
+			"type": "object"
+		},
+		"ChromecastOperations": {
+			"enum": [
+				"play",
+				"pause",
+				"resume",
+				"stop",
+				"seek",
+				"subtitles"
+			],
+			"type": "string"
+		},
+		"ChromecastMediaOptions": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				},
+				"seek": {
+					"type": "number",
+					"format": "double"
+				},
+				"subtitles": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"autoSubtitles": {
+					"type": "boolean"
+				}
+			},
+			"type": "object"
+		},
+		"ChromecastRequest": {
+			"properties": {
+				"command": {
+					"$ref": "#/definitions/ChromecastOperations"
+				},
+				"url": {
+					"type": "string"
+				},
+				"options": {
+					"$ref": "#/definitions/ChromecastMediaOptions"
+				}
+			},
+			"required": [
 				"command"
 			],
 			"type": "object"
@@ -174,7 +226,7 @@
 						"name": "model",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/BroadlinkDeviceController"
+							"$ref": "#/definitions/BroadlinkRequest"
 						}
 					}
 				]
@@ -196,6 +248,198 @@
 				},
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/Chromecast/Discover": {
+			"post": {
+				"operationId": "DiscoverChromecasts",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/Chromecast/Devices": {
+			"get": {
+				"operationId": "GetChromecastDevices",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/Chromecast/Devices/{deviceId}": {
+			"get": {
+				"operationId": "GetChromecastDevice",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/Chromecast/Devices/{deviceId}/Controller": {
+			"put": {
+				"operationId": "PutChromecastDeviceController",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "No content",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ChromecastRequest"
+						}
+					}
+				]
+			}
+		},
+		"/Chromecast/Default/Controller": {
+			"put": {
+				"operationId": "ControlChromecast",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "request",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ChromecastRequest"
+						}
+					}
+				]
+			}
+		},
+		"/Chromecast/Default": {
+			"put": {
+				"operationId": "SetDefaultChromecastDevice",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "device_name",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/Chromecast/Status": {
+			"get": {
+				"operationId": "GetChromecastDeviceStatus",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "device_name",
+						"required": true,
+						"type": "string"
+					}
+				]
 			}
 		}
 	},

@@ -14,6 +14,7 @@ import { RegisterRoutes } from './routes/routes';
 
 // Import API controllers for tsoa crawl
 import './api/controllers/broadlink';
+import './api/controllers/chromecast';
 import './api/controllers/health';
 
 main().catch(err => {

@@ -1,5 +1,5 @@
 export interface ResponseModel {
-    code: number,
+    status: number,
     message: string
 }
 

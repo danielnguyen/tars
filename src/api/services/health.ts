@@ -8,7 +8,7 @@ export class HealthService {
     get(): Promise<ResponseModel> {
         return new Promise((resolve, reject) => {
             const status: ResponseModel = {
-                code: HTTP_STATUS.OK,
+                status: HTTP_STATUS.OK,
                 message: "All good!"
             };
             resolve(status);
