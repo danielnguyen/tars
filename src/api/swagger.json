@@ -43,7 +43,7 @@
 			],
 			"type": "object"
 		},
-		"BroadlinkDeviceController": {
+		"BroadlinkRequest": {
 			"properties": {
 				"device": {
 					"type": "string",
@@ -226,7 +226,7 @@
 						"name": "model",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/BroadlinkDeviceController"
+							"$ref": "#/definitions/BroadlinkRequest"
 						}
 					}
 				]
@@ -271,7 +271,92 @@
 				"parameters": []
 			}
 		},
-		"/Chromecast/Controller": {
+		"/Chromecast/Devices": {
+			"get": {
+				"operationId": "GetChromecastDevices",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/Chromecast/Devices/{deviceId}": {
+			"get": {
+				"operationId": "GetChromecastDevice",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/Chromecast/Devices/{deviceId}/Controller": {
+			"put": {
+				"operationId": "PutChromecastDeviceController",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "No content",
+						"schema": {
+							"$ref": "#/definitions/ResponseModel"
+						}
+					}
+				},
+				"tags": [
+					"Chromecast"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "deviceId",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ChromecastRequest"
+						}
+					}
+				]
+			}
+		},
+		"/Chromecast/Default/Controller": {
 			"put": {
 				"operationId": "ControlChromecast",
 				"produces": [
@@ -303,7 +388,7 @@
 		},
 		"/Chromecast/Default": {
 			"put": {
-				"operationId": "SetDefaultChromecastPlayer",
+				"operationId": "SetDefaultChromecastDevice",
 				"produces": [
 					"application/json"
 				],
@@ -322,7 +407,7 @@
 				"parameters": [
 					{
 						"in": "header",
-						"name": "player_name",
+						"name": "device_name",
 						"required": true,
 						"type": "string"
 					}
@@ -331,7 +416,7 @@
 		},
 		"/Chromecast/Status": {
 			"get": {
-				"operationId": "GetChromecastPlayerStatus",
+				"operationId": "GetChromecastDeviceStatus",
 				"produces": [
 					"application/json"
 				],
@@ -350,7 +435,7 @@
 				"parameters": [
 					{
 						"in": "header",
-						"name": "player_name",
+						"name": "device_name",
 						"required": true,
 						"type": "string"
 					}

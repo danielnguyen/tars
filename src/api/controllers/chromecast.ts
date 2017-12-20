@@ -16,7 +16,32 @@ export class ChromecastController extends Controller {
     }
     
     @SuccessResponse(HTTP_STATUS.OK, 'OK')
-    @Put('Controller')
+    @Get('Devices')
+    @Tags('Chromecast')
+    public async getChromecastDevices(): Promise<any> {
+        const resp = await chromecastService.getChromecastDevices();
+        return resp;
+    }
+    
+    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @Get('Devices/{deviceId}')
+    @Tags('Chromecast')
+    public async getChromecastDevice(@Path('deviceId') deviceId: string): Promise<any> {
+        const resp = await chromecastService.getChromecastDevice(deviceId);
+        return resp;
+    }
+    
+    @SuccessResponse(HTTP_STATUS.NO_CONTENT, 'No content')
+    @Put('Devices/{deviceId}/Controller')
+    @Tags('Chromecast')
+    public async putChromecastDeviceController(@Path('deviceId') deviceId: string, @Body() model: ChromecastRequest): Promise<ResponseModel> {
+        const resp = await chromecastService.controlChromecast(model, deviceId);
+        this.setStatus(resp.status);
+        return resp;
+    }
+    
+    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @Put('Default/Controller')
     @Tags('Chromecast')
     public async controlChromecast(@Body() request: ChromecastRequest): Promise<ResponseModel> {
         const resp = await chromecastService.controlChromecast(request);
@@ -27,8 +52,8 @@ export class ChromecastController extends Controller {
     @SuccessResponse(HTTP_STATUS.OK, 'OK')
     @Put('Default')
     @Tags('Chromecast')
-    public async setDefaultChromecastPlayer(@Header() player_name: string): Promise<ResponseModel> {
-        const resp = await chromecastService.setDefaultChromecastPlayer(player_name);
+    public async setDefaultChromecastDevice(@Header() device_name: string): Promise<ResponseModel> {
+        const resp = await chromecastService.setDefaultChromecastDevice(device_name);
         this.setStatus(resp.status);
         return resp;
     }
@@ -36,8 +61,8 @@ export class ChromecastController extends Controller {
     @SuccessResponse(HTTP_STATUS.OK, 'OK')
     @Get('Status')
     @Tags('Chromecast')
-    public async getChromecastPlayerStatus(@Header() player_name: string): Promise<ResponseModel> {
-        const resp = await chromecastService.getChromecastPlayerStatus(player_name);
+    public async getChromecastDeviceStatus(@Header() device_name: string): Promise<ResponseModel> {
+        const resp = await chromecastService.getChromecastDeviceStatus(device_name);
         this.setStatus(resp.status);
         return resp;
     }

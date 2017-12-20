@@ -7,7 +7,7 @@ export interface BroadlinkDeviceInfo {
     type: string
 }
 
-export interface BroadlinkDeviceController {
+export interface BroadlinkRequest {
     device: "Projector" | "TV",
     command: string
 }
