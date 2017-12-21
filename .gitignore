@@ -63,4 +63,3 @@ certs/
 
 # TSOA Generated
 src/dist/
-src/routes/routes.ts
