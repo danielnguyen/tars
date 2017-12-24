@@ -11,6 +11,8 @@ loadEnv().catch(err => {
 import { Server } from './common/server';
 import { swagger } from './common/swagger';
 import { RegisterRoutes } from './routes/routes';
+import { Config } from './config';
+const localtunnel = require('localtunnel');
 
 // Import API controllers for tsoa crawl
 import './api/controllers/broadlink';
@@ -41,5 +43,24 @@ async function main(): Promise<void> {
         const info = await server.info();
         console.log('Server is listening at: ' + info.url);
         console.log('** TARS is online!');
+        if (Config.ENABLE_TUNNEL) {
+            const tunnel = localtunnel(Config.APP_PORT, {subdomain: Config.LOCALTUNNEL_SUBDOMAIN}, (err: Error, tunnel: any) => {
+                if (err) {
+                    console.log(err);
+                    process.exit();
+                }
+                console.log("Tars is available on the web at the following URL: " + tunnel.url);
+            });
+            
+            tunnel.on('error', function() {
+                console.log("Encountered errors with local tunnelling.");
+                process.exit();
+            });
+    
+            tunnel.on('close', function() {
+                console.log("Tars is no longer available on the web at the localtunnnel.me URL.");
+                process.exit();
+            });
+        }
     });
 }
