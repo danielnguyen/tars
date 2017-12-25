@@ -63,3 +63,6 @@ certs/
 
 # TSOA Generated
 src/dist/
+
+# Generated PID file (Forever)
+*.pid
