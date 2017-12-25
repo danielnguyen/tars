@@ -14,9 +14,9 @@
     "generate:swagger": "tsoa swagger",
     "clean": "rimraf coverage build tmp src/api/swagger.json src/routes/routes.ts",
     "start": "./node_modules/.bin/ts-node ./src/app.ts",
-    "start:forever": "forever start --pidFile ./tars.pid -c 'npm start' ./",
+    "start:forever": "forever start --uid \"tars\" -c 'npm start' ./",
     "start:watch": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/app.ts",
-    "stop:forever": "forever stop --pidFile ./tars.pid",
+    "stop:forever": "forever stop --uid \"tars\"",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
