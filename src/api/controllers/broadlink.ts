@@ -7,7 +7,7 @@ import { ErrorResponseModel, ResponseModel } from '../models';
 @Route('Broadlink')
 export class BroadlinkController extends Controller {
     
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(201, 'Created')
     @Post('Discover')
     @Tags('Broadlink')
     public async discoverBroadlinkDevices(): Promise<ResponseModel> {
@@ -16,7 +16,7 @@ export class BroadlinkController extends Controller {
         return resp;
     }
 
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(200, 'OK')
     @Get('Devices')
     @Tags('Broadlink')
     public async getBroadlinkDevices(): Promise<any> {
@@ -24,7 +24,7 @@ export class BroadlinkController extends Controller {
         return resp;
     }
     
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(200, 'OK')
     @Get('Devices/{deviceId}')
     @Tags('Broadlink')
     public async getBroadlinkDevice(@Path('deviceId') deviceId: number): Promise<BroadlinkDeviceInfo> {
@@ -32,7 +32,7 @@ export class BroadlinkController extends Controller {
         return resp;
     }
     
-    @SuccessResponse(HTTP_STATUS.NO_CONTENT, 'No content')
+    @SuccessResponse(204, 'No content')
     @Put('Devices/{deviceId}/Controller')
     @Tags('Broadlink')
     public async putBroadlinkDeviceController(@Path('deviceId') deviceId: number, @Body() model: BroadlinkRequest): Promise<ResponseModel> {

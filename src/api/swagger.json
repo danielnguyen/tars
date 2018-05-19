@@ -131,8 +131,8 @@
 					"application/json"
 				],
 				"responses": {
-					"200": {
-						"description": "OK",
+					"201": {
+						"description": "Created",
 						"schema": {
 							"$ref": "#/definitions/ResponseModel"
 						}
@@ -202,7 +202,7 @@
 					"application/json"
 				],
 				"responses": {
-					"200": {
+					"204": {
 						"description": "No content",
 						"schema": {
 							"$ref": "#/definitions/ResponseModel"
@@ -257,7 +257,7 @@
 					"application/json"
 				],
 				"responses": {
-					"200": {
+					"201": {
 						"description": "OK",
 						"schema": {
 							"type": "object"
@@ -327,7 +327,7 @@
 					"application/json"
 				],
 				"responses": {
-					"200": {
+					"204": {
 						"description": "No content",
 						"schema": {
 							"$ref": "#/definitions/ResponseModel"
@@ -363,8 +363,8 @@
 					"application/json"
 				],
 				"responses": {
-					"200": {
-						"description": "OK",
+					"204": {
+						"description": "No content",
 						"schema": {
 							"$ref": "#/definitions/ResponseModel"
 						}
@@ -393,8 +393,8 @@
 					"application/json"
 				],
 				"responses": {
-					"200": {
-						"description": "OK",
+					"204": {
+						"description": "No content",
 						"schema": {
 							"$ref": "#/definitions/ResponseModel"
 						}

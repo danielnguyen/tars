@@ -7,7 +7,7 @@ import { ChromecastRequest } from '../models/chromecast';
 @Route('Chromecast')
 export class ChromecastController extends Controller {
     
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(201, 'OK')
     @Post('Discover')
     @Tags('Chromecast')
     public async discoverChromecasts(): Promise<any> {
@@ -15,7 +15,7 @@ export class ChromecastController extends Controller {
         return resp;
     }
     
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(200, 'OK')
     @Get('Devices')
     @Tags('Chromecast')
     public async getChromecastDevices(): Promise<any> {
@@ -23,7 +23,7 @@ export class ChromecastController extends Controller {
         return resp;
     }
     
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(200, 'OK')
     @Get('Devices/{deviceId}')
     @Tags('Chromecast')
     public async getChromecastDevice(@Path('deviceId') deviceId: string): Promise<any> {
@@ -31,7 +31,7 @@ export class ChromecastController extends Controller {
         return resp;
     }
     
-    @SuccessResponse(HTTP_STATUS.NO_CONTENT, 'No content')
+    @SuccessResponse(204, 'No content')
     @Put('Devices/{deviceId}/Controller')
     @Tags('Chromecast')
     public async putChromecastDeviceController(@Path('deviceId') deviceId: string, @Body() model: ChromecastRequest): Promise<ResponseModel> {
@@ -40,7 +40,7 @@ export class ChromecastController extends Controller {
         return resp;
     }
     
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(204, 'No content')
     @Put('Default/Controller')
     @Tags('Chromecast')
     public async controlChromecast(@Body() request: ChromecastRequest): Promise<ResponseModel> {
@@ -49,7 +49,7 @@ export class ChromecastController extends Controller {
         return resp;
     }
     
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(204, 'No content')
     @Put('Default')
     @Tags('Chromecast')
     public async setDefaultChromecastDevice(@Header() device_name: string): Promise<ResponseModel> {
@@ -58,7 +58,7 @@ export class ChromecastController extends Controller {
         return resp;
     }
 
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(200, 'OK')
     @Get('Status')
     @Tags('Chromecast')
     public async getChromecastDeviceStatus(@Header() device_name: string): Promise<ResponseModel> {

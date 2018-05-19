@@ -6,7 +6,7 @@ import { ResponseModel } from '../models';
 @Route('HealthCheck')
 export class HealthController extends Controller {
 
-    @SuccessResponse(HTTP_STATUS.OK, 'OK')
+    @SuccessResponse(200, 'OK')
     @Get()
     public async getHealth(): Promise<ResponseModel> {
         return await new HealthService().get();
